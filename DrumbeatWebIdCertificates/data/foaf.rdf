@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<rdf:RDF
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns:foaf="http://xmlns.com/foaf/0.1/"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:cert="http://www.w3.org/ns/auth/cert#">
+  <foaf:PersonalProfileDocument rdf:about="https://www.cs.hut.fi/~joraskar/jyrkio">
+    <dc:title>Jyrki Oraskari's FOAF Profile</dc:title>
+    <foaf:maker rdf:resource="https://www.cs.hut.fi/~joraskar/jyrkio#me" />
+    <foaf:primaryTopic rdf:resource="https://www.cs.hut.fi/~joraskar/jyrkio#me" />
+  </foaf:PersonalProfileDocument>
+ 
+ <foaf:Person rdf:about="https://www.cs.hut.fi/~joraskar/jyrkio#me">
+    <foaf:name>Jyrki Oraskari</foaf:name>
+<cert:key>
+      <cert:RSAPublicKey>
+        <cert:modulus rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">
+00b6cdbd39d3a49e7f9b07b16f452263b081d584eb4b06b8a13036f066283a12d894224d8c522e73015b9ef9683f7c8608ad140ad2558574a540006afa3ff0b2b8cf5710dbc8ffbfe54b285dab3ff4befd43daa41631505fd2de3787a6199900ae3a35fbc4d5ac1b50b6bde60d4fa32c507ec784991b35428d39e7d80c0400d4e2437dd5bb008060d0b15a8d751196409191d3e417f1270a6a1888ab03f16ba454297a2ea3d055fd3bcfe0eb3e0b5d30c1cbe0e719a276dfab131fa3cadec03ecc92e0519be06cab709873a6629ec1d4c351c607e788a7f79854f53343c6eb7066de57765eb167bc76a4607bc5fb44cb3736d36cae74183dd15eccd8ff35504e5b
+</cert:modulus>
+        <cert:exponent rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">65537</cert:exponent>
+      </cert:RSAPublicKey>
+    </cert:key>
+  </foaf:Person>
+</rdf:RDF>
