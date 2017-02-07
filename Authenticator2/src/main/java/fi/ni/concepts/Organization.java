@@ -9,25 +9,32 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.http.client.utils.URIBuilder;
-import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.rdf.model.Property;
-import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
-import org.apache.jena.util.FileManager;
 
-import fi.ni.DRUMBEATAuthorizationConstants;
+import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.rdf.model.ModelFactory;
+import com.hp.hpl.jena.rdf.model.Property;
+import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.util.FileManager;
+
+import fi.ni.Constants;
 import fi.ni.Fetchable;
+import fi.ni.RDFDataStore;
+import fi.ni.ruledata.RulePath;
+import fi.ni.webid.WebIDCertificate;
+import fi.ni.webid.WebIDProfile;
 
 public class Organization extends Fetchable {
 	private URI rootURI;
 	private String uri = "";
-	private Model rdf_model = ModelFactory.createDefaultModel();
+
 
 	private final String name;
 	private Map<String, WebIDProfile> webid_profiles = new HashMap<String, WebIDProfile>();
 
+	 private  RDFDataStore rdf_datastore=null;
+	
 	public Organization(String uri_str, String name) {
 		super();
 		try {
@@ -43,36 +50,13 @@ public class Organization extends Fetchable {
 		}
 
 		this.name = name;
-
-		InputStream in = FileManager.get()
-				.open(DRUMBEATAuthorizationConstants.RDF_filePath + "organization_" + name + ".n3");
-		if (in == null) {
-			writeDemoData(name);
-		   return;  // can be nonexistent!
-		}
-
-		// read the RDF/XML file
-		RDFDataMgr.read(rdf_model, in,  Lang.TURTLE) ;
-
-		// write it to standard out
-		rdf_model.write(System.out);
+		
+		rdf_datastore=new RDFDataStore(rootURI, name);
+        rdf_datastore.readRDFData();		
+        rdf_datastore.saveRDFData();
 	}
-
-	private void writeDemoData(String name) {
-		Resource root = rdf_model.getResource(rootURI.toString());
-		Property property_maincontracor = rdf_model.getProperty("http://drumbeat/maincontractor");
-		Resource maincontractor = rdf_model.getResource("http://company1/");
-		root.addProperty(property_maincontracor, maincontractor);
-		try {
-			FileOutputStream fout = new FileOutputStream(
-					DRUMBEATAuthorizationConstants.RDF_filePath + "datastore_" + name + ".n3");
-			RDFDataMgr.write(fout, rdf_model, Lang.TURTLE);
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-
+	
+	
 	public WebIDProfile get(String local_path) {
 		return webid_profiles.get(local_path);
 	}

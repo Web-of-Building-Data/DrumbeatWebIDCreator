@@ -30,6 +30,12 @@ public class Internet {
 	static {
 		Organization c1 = new Organization("http://company1/", "company 1");
 		adresses.put(c1.getUri(), c1);
+		
+		Organization c2 = new Organization("http://company2/", "company 2");
+		adresses.put(c2.getUri(), c2);
+		
+		Organization c3 = new Organization("http://sub1/", "subcontractor 1");
+		adresses.put(c3.getUri(), c3);
 	}
 
 	public static void main(String[] args) {

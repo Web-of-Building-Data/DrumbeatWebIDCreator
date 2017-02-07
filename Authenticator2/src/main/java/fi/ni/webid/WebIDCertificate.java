@@ -1,4 +1,4 @@
-package fi.ni.concepts;
+package fi.ni.webid;
 
 import java.net.URI;
 
