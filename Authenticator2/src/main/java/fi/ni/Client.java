@@ -11,6 +11,7 @@ public class Client {
 		try {
 			Organization o = (Organization) Internet.get("http://company1/");
 			WebIDCertificate wc=o.getWebID("mats");
+			System.out.println("wc uri on:"+wc.getWebid_uri().toString());
 			DataStore ds1=new DataStore("http://datastore/","store1");
 			if(ds1.connect(wc,"collection1/datastore1/object1")==true)
 			  System.out.println("Connected...");	

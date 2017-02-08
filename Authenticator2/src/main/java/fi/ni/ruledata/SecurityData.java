@@ -66,22 +66,22 @@ public class SecurityData {
 		ProctedtedPath p;
 		p = new ProctedtedPath("collection1/datastore1/");
 		protected_paths.add(p);
-		p.addRule(AuthenticationRule.PERMISSION.READ, new RulePath("contractor/persons"));
+		p.addRule(AuthenticationRule.PERMISSION.READ, new RulePath("contractor/known_person"));
 
 		p = new ProctedtedPath("collection1/datastore2/");
 		protected_paths.add(p);
-		p.addRule(AuthenticationRule.PERMISSION.UPDATE, new RulePath("main_contractor/persons"));
+		p.addRule(AuthenticationRule.PERMISSION.UPDATE, new RulePath("main_contractor/known_person"));
 
 		p = new ProctedtedPath("collection1/");
 		protected_paths.add(p);
-		p.addRule(AuthenticationRule.PERMISSION.READ, new RulePath("main_contractor/persons"));
+		p.addRule(AuthenticationRule.PERMISSION.READ, new RulePath("main_contractor/known_person"));
 
 		p = new ProctedtedPath("collection2/datastore1/");
 		protected_paths.add(p);
-		p.addRule(AuthenticationRule.PERMISSION.READ, new RulePath("contractor/persons"));
+		p.addRule(AuthenticationRule.PERMISSION.READ, new RulePath("contractor/known_person"));
 
 		p = new ProctedtedPath("collection2/datastore2/");
 		protected_paths.add(p);
-		p.addRule(AuthenticationRule.PERMISSION.READ, new RulePath("main_contractor/persons"));
+		p.addRule(AuthenticationRule.PERMISSION.READ, new RulePath("main_contractor/known_person"));
 	}
 }

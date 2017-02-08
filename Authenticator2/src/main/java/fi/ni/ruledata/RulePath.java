@@ -1,6 +1,7 @@
 package fi.ni.ruledata;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.viceversatech.rdfbeans.annotations.RDF;
@@ -54,4 +55,11 @@ public class RulePath extends AbstractData {
 		}
 		return null; // Stecial case.. last step
 	}
+
+	@Override
+	public String toString() {
+		return "RulePath [rulepath=" + Arrays.toString(rulepath) + "]";
+	}
+	
+	
 }

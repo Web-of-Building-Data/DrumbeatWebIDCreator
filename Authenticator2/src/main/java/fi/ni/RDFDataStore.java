@@ -4,7 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
@@ -17,6 +18,7 @@ import org.ontoware.rdf2go.model.Statement;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.util.FileManager;
 import com.viceversatech.rdfbeans.RDFBeanManager;
 import com.viceversatech.rdfbeans.exceptions.RDFBeanException;
@@ -46,7 +48,8 @@ public class RDFDataStore {
 		return jena_model.getResource(rootURI.toString());
 	}
 
-	public RDFNode getData(String property) {
+	//TODO Muuta, ettö vastauksia monta
+	public RDFNode getDataORG(String property) {
 		Property p = jena_model.getProperty(Constants.property_base+property);
 		System.out.println("root:"+getRoot().getURI());
 		System.out.println("property:"+p.getURI());
@@ -54,6 +57,20 @@ public class RDFDataStore {
 			return getRoot().getProperty(p).getObject();
 		else
 			return null;
+	}
+	
+	public List<RDFNode> getData(String property) {
+		List<RDFNode> ret=new ArrayList<RDFNode>();
+		Property p = jena_model.getProperty(Constants.property_base+property);
+		System.out.println("root:"+getRoot().getURI());
+		System.out.println("property:"+p.getURI());
+		
+		StmtIterator it = getRoot().listProperties( p );
+	    while( it.hasNext() ) {
+	      com.hp.hpl.jena.rdf.model.Statement stmt = it.nextStatement();
+	      ret.add(stmt.getObject() );
+	    }
+		return ret;
 	}
 
 	public RDFNode getData(RDFNode node, String property) {
@@ -133,6 +150,10 @@ public class RDFDataStore {
 		Property property_contracor = jena_model.getProperty(Constants.property_base + "contractor");
 		Resource contractor1 = jena_model.getResource("http://company2/");
 		root.addProperty(property_contracor, contractor1);
+		
+		Property property_known_person = jena_model.getProperty(Constants.property_base + "known_person");
+		Resource person1 = jena_model.getResource("http://company1/mats");
+		root.addProperty(property_known_person, person1);
 	}
 
 	private void listRDFContent() {
