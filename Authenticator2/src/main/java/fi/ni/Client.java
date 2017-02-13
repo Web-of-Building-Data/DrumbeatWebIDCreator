@@ -13,7 +13,7 @@ public class Client {
 			WebIDCertificate wc=o.getWebID("mats");
 			System.out.println("wc uri on:"+wc.getWebid_uri().toString());
 			DataStore ds1=new DataStore("http://datastore/","store1");
-			if(ds1.connect(wc,"collection1/datastore1/object1")==true)
+			if(ds1.connect(wc,"http://architectural.drb.cs.hut.fi/drumbeat/objects/smc2/architectural/3A248E14-4504-4891-902B-5E9216C64AB9")==true)
 			  System.out.println("Connected...");	
 				
 		} catch (Exception e) {

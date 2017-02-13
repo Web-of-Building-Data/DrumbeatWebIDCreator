@@ -46,7 +46,7 @@
 			<artifactId>commons-rdf-api</artifactId>
 			<version>0.2.0-incubating</version>
 		</dependency>
-	
+
 
 		<dependency>
 			<groupId>org.semweb4j</groupId>

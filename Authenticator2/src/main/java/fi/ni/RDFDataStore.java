@@ -141,6 +141,7 @@ public class RDFDataStore {
 	}
 
 	private void createDemoData() {
+		//TODO main_constructor suhteessa... protected pathiin...
 		Resource root = jena_model.getResource(rootURI.toString());
 		Property property_maincontracor = jena_model.getProperty(Constants.property_base + "main_contractor");
 		Resource maincontractor = jena_model.getResource("http://company1/");

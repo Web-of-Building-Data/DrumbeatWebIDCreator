@@ -51,14 +51,17 @@ public class DataStore extends Fetchable {
 	}
 
 	public boolean connect(WebIDCertificate wc, String request_uri) {
+		URI canonizted_requestURI = canonisateURIs(request_uri);
 		System.out.println("WebID oli:" + wc.getWebid_uri().toString());
+		System.out.println("req uri oli:" + request_uri);
+		System.out.println("canonized uri oli:" + canonizted_requestURI);
+
 		Organization o = (Organization) Internet.get(wc.getWebid_uri().toString());
 		if (o == null)
 			return false;
 		WebIDProfile wp = (WebIDProfile) o.get(wc.getWebid_uri().getPath());
 		if (wc.getPublic_key().equals(wp.getPublic_key())) {
-
-			List<ProctedtedPath> matched_paths = security_data.match(request_uri);
+			List<ProctedtedPath> matched_paths = security_data.match(canonizted_requestURI);
 			for (ProctedtedPath r : matched_paths) {
 
 				System.out.println("match: " + r.getProtected_path());
@@ -97,4 +100,20 @@ public class DataStore extends Fetchable {
 			return false;
 	}
 
+	public URI canonisateURIs(String uri_txt) {
+		URI uri;
+		try {
+			uri = new URI(uri_txt);
+			String path = uri.getPath();
+			path = path.replaceFirst("/drumbeat/objects", "/security");
+			path = path.replaceFirst("/drumbeat/collections", "/security");
+			path = path.replaceFirst("/drumbeat/datasources", "/security");
+			path = path.replaceFirst("/drumbeat/datasets", "/security");
+			return new URIBuilder().setScheme("https").setHost(uri.getHost()).setPath(path).build();
+
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

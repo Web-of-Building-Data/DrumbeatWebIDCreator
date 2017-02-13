@@ -1,5 +1,6 @@
 package fi.ni.ruledata;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -51,36 +52,42 @@ public class SecurityData {
 	}
 
 	
-	public List<ProctedtedPath> match(String uri) {
+	public List<ProctedtedPath> match(URI requested_uri) {
+		String requested_path=requested_uri.getPath().replaceFirst("/security", "");
+		System.out.println("search path: "+requested_path);
 		List<ProctedtedPath> ret = new ArrayList<ProctedtedPath>();
 		for (ProctedtedPath p : protected_paths) {
-			if (uri.contains(p.getProtected_path()))
+			if (requested_path.startsWith(p.getProtected_path()))
 				ret.add(p);
 		}
 		return ret;
 	}
 
+	
+	//TODO matchaa säännöt moneen uri alkuu... kanonisoi path.. ja hae lyhimmän mukaan
+	//TODO projektikuvaus... owner
+	//TODO property lista 
 
 	public void demoData() {
 		ProctedtedPath.path_base_uri = "http://this_host/";
 		ProctedtedPath p;
-		p = new ProctedtedPath("collection1/datastore1/");
+		p = new ProctedtedPath("/smc2/architectural/");
 		protected_paths.add(p);
 		p.addRule(AuthenticationRule.PERMISSION.READ, new RulePath("contractor/known_person"));
 
-		p = new ProctedtedPath("collection1/datastore2/");
+		p = new ProctedtedPath("/smc-arc/architectural/");
 		protected_paths.add(p);
 		p.addRule(AuthenticationRule.PERMISSION.UPDATE, new RulePath("main_contractor/known_person"));
 
-		p = new ProctedtedPath("collection1/");
+		p = new ProctedtedPath("/smc-arc/");
 		protected_paths.add(p);
 		p.addRule(AuthenticationRule.PERMISSION.READ, new RulePath("main_contractor/known_person"));
 
-		p = new ProctedtedPath("collection2/datastore1/");
+		p = new ProctedtedPath("/smc-arc/architectural/v1");
 		protected_paths.add(p);
 		p.addRule(AuthenticationRule.PERMISSION.READ, new RulePath("contractor/known_person"));
 
-		p = new ProctedtedPath("collection2/datastore2/");
+		p = new ProctedtedPath("/collection2/datastore2/");
 		protected_paths.add(p);
 		p.addRule(AuthenticationRule.PERMISSION.READ, new RulePath("main_contractor/known_person"));
 	}
